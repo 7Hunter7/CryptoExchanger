@@ -1,6 +1,7 @@
 <template>
   <h1>Crypto exchanger</h1>
-  <input-crypto />
+  <input-crypto :changeAmount="changeAmount" />
+  {{ amount }}
   <div class="selectors">
     <select-crypto />
     <select-crypto />
@@ -8,8 +9,15 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import InputCrypto from '@/components/InputCrypto.vue'
 import SelectCrypto from '@/components/SelectCrypto.vue'
+
+const amount = ref(0)
+
+const changeAmount = (value) => {
+  amount.value = value
+}
 </script>
 
 <style scoped>

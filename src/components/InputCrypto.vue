@@ -1,10 +1,21 @@
 <template>
-  <div>
-    <input type="number" id="crypto" v-model="crypto" class="input" placeholder="Введите число" />
-  </div>
+  <input
+    type="number"
+    id="crypto"
+    class="input"
+    @input="changeAmount($event.target.value)"
+    placeholder="Введите число"
+  />
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+  changeAmount: {
+    type: Function,
+    required: true,
+  },
+})
+</script>
 
 <style scoped lang="scss">
 .label {
