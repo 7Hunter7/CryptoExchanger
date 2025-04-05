@@ -1,6 +1,6 @@
 {
-  "name": "crypto",
-  "version": "0.0.0",
+  "name": "crypto_exchanger",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
