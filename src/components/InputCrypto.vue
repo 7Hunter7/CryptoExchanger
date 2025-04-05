@@ -8,12 +8,19 @@
 
 <script setup></script>
 
-<style scoped>
+<style scoped lang="scss">
+.label {
+  font-size: var(--font-size-md);
+  color: var(--color-primary);
+}
 .input {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-xxxs) var(--spacing-xxs);
+  border: 2px solid var(--color-white);
+  border-radius: var(--spacing-xs);
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
 }
 </style>
