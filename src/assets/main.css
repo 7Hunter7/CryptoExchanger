@@ -1,8 +1,9 @@
-@import url('https:/*fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&family=Mako&display=swap');
 
 :root {
   /* Шрифт */
-  --font-family-base: 'Big Shoulders Stencil', sans-serif;
+  --font-family-primary: 'Big Shoulders Stencil', sans-serif;
+  --font-family-secondary: 'Mako', sans-serif;
 
   /* Размеры заголовков */
   --font-size-largetitle: 1.5rem; /* 24px */
@@ -41,6 +42,9 @@
   --spacing-xl: 1.5rem; /* 24px */
   --spacing-xxl: 2rem; /* 32px */
   --spacing-xxxl: 2.25rem; /* 36px */
+
+  /* Стили для инпута */
+  --input-width: 16rem; /* 256px */
 }
 
 * {
@@ -53,7 +57,7 @@ body {
   height: 100vh;
   box-sizing: border-box;
   padding: var(--spacing-md);
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-primary);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-regular);
   font-style: normal;
