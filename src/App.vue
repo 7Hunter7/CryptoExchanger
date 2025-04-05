@@ -1,6 +1,6 @@
 <template>
   <h1>Crypto exchanger</h1>
-  <input-crypto :changeAmount="changeAmount" />
+  <input-crypto :changeAmount="changeAmount" :convert="convert" />
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" />
@@ -24,6 +24,10 @@ const setCryptoFirst = (value) => {
 }
 const setCryptoSecond = (value) => {
   cryptoSecond.value = value
+}
+const convert = () => {
+  // Здесь будет логика конвертации
+  console.log(`Конвертируем ${amount.value} ${cryptoFirst.value} в ${cryptoSecond.value}`)
 }
 </script>
 

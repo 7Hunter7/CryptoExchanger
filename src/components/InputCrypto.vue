@@ -9,12 +9,16 @@
     placeholder="Введите число"
   />
   <br />
-  <button class="button">Конвертировать</button>
+  <button class="button" @click="convert()">Конвертировать</button>
 </template>
 
 <script setup>
 defineProps({
   changeAmount: {
+    type: Function,
+    required: true,
+  },
+  convert: {
     type: Function,
     required: true,
   },
