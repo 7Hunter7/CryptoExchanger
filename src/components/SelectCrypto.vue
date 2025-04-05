@@ -1,6 +1,5 @@
 <template>
   <ul class="list">
-    <li class="list__item">Выберите валюту</li>
     <li class="list__item">Bitcoin</li>
     <li class="list__item">ETH</li>
     <li class="list__item">USDT</li>
@@ -22,14 +21,12 @@
   &__item {
     padding: var(--spacing-xxs) var(--spacing-xs);
     font-size: var(--font-size-base);
-    margin-bottom: var(--spacing-xxs);
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
-    &:hover {
-      text-shadow: var(--text-shadow);
-    }
+    &:hover,
     &:active {
-      transform: scale(0.95);
+      background-color: var(--background-select-color);
+      text-shadow: var(--text-shadow);
     }
   }
 }

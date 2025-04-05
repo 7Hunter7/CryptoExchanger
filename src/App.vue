@@ -2,6 +2,7 @@
   <h1>Crypto exchanger</h1>
   <input-crypto />
   <select-crypto />
+  <select-crypto />
 </template>
 
 <script setup>

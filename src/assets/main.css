@@ -27,6 +27,7 @@
   --color-red: #f25a50;
   --color-grey: #b7b8c3;
   --background-color: linear-gradient(339deg, rgba(86, 18, 91, 1) 0%, rgba(40, 10, 80, 1) 100%);
+  --background-select-color: #24043e;
 
   /* Цвета текста */
   --color-text-primary: rgba(250, 180, 70, 1);
