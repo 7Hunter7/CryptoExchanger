@@ -1,6 +1,8 @@
 <template>
   <input
     type="number"
+    :min="0"
+    :max="1000000000"
     id="crypto"
     class="input"
     @input="changeAmount($event.target.value)"
