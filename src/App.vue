@@ -1,6 +1,7 @@
 <template>
   <h1>Crypto exchanger</h1>
   <input-crypto :changeAmount="changeAmount" :convert="convert" />
+  <p v-if="error != ''">{{ error }}</p>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" />
@@ -15,6 +16,7 @@ import SelectCrypto from '@/components/SelectCrypto.vue'
 const amount = ref(0)
 const cryptoFirst = ref('')
 const cryptoSecond = ref('')
+const error = ref('')
 
 const changeAmount = (value) => {
   amount.value = value
@@ -26,8 +28,15 @@ const setCryptoSecond = (value) => {
   cryptoSecond.value = value
 }
 const convert = () => {
-  // Здесь будет логика конвертации
-  console.log(`Конвертируем ${amount.value} ${cryptoFirst.value} в ${cryptoSecond.value}`)
+  if (amount.value <= 0) {
+    error.value = 'Введите значение больше 0'
+    return
+  }
+  if (cryptoFirst.value === '' || cryptoSecond.value === '') {
+    error.value = 'Выберите криптовалюту'
+    return
+  }
+  error.value = ''
 }
 </script>
 
