@@ -10,9 +10,9 @@
 
 <style scoped lang="scss">
 .list {
+  width: var(--select-width);
   margin-top: var(--spacing-md);
   padding: 0;
-  width: var(--input-width);
   list-style: none;
   color: var(--color-primary);
   border: 2px solid var(--color-black);

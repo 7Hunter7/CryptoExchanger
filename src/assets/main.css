@@ -46,6 +46,8 @@
 
   /* Стили для инпута */
   --input-width: 16rem; /* 256px */
+  --select-width: 8rem; /* 128px */
+  --selectors-width: 20rem; /* 320px */
 }
 
 * {
