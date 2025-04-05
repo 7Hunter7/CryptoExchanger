@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- <label for="crypto">Crypto</label> -->
-    <input type="text" id="crypto" v-model="crypto" class="input" />
-    <!-- <p>Crypto: {{ crypto }}</p> -->
+    <input type="number" id="crypto" v-model="crypto" class="input" placeholder="Введите число" />
   </div>
 </template>
 
