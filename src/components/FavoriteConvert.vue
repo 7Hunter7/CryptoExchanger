@@ -2,8 +2,8 @@
   <div class="favourite">
     <h2>Избранное</h2>
     <div v-if="favourites.length > 0" class="favourite__list">
-      <ul>
-        <li v-for="(item, index) in favourites" :key="index" class="favourite__item">
+      <ul v-for="(item, index) in favourites" :key="index">
+        <li @click="getFavorite(index)" class="favourite__item">
           <span>{{ item.from }}</span>
           <span>→</span>
           <span>{{ item.to }}</span>
@@ -18,6 +18,10 @@
 defineProps({
   favourites: {
     type: Array,
+    required: true,
+  },
+  getFavorite: {
+    type: Function,
     required: true,
   },
 })
