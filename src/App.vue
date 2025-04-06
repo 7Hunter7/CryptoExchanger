@@ -1,14 +1,9 @@
 <template>
   <h1>Crypto exchanger</h1>
-  <input-crypto :setAmount="setAmount" :convert="convert" :addToFavorite="addToFavorite" />
+  <input-crypto />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
-  <favorite-convert
-    v-if="favorites.length > 0"
-    :favorites="favorites"
-    :getFavorite="getFavorite"
-    @removeFavorite="removeFavorite"
-  >
+  <favorite-convert v-if="favorites.length > 0">
     {{ favorites }}
   </favorite-convert>
   <div class="selectors">
@@ -34,15 +29,7 @@ import FavoriteConvert from '@/components/FavoriteConvert.vue'
 
 const store = useCryptoStore()
 const { cryptoFirst, cryptoSecond, error, result, favorites } = storeToRefs(store)
-const {
-  setAmount,
-  setCryptoFirst,
-  setCryptoSecond,
-  convert,
-  getFavorite,
-  addToFavorite,
-  removeFavorite,
-} = store
+const { setCryptoFirst, setCryptoSecond } = store
 </script>
 
 <style scoped>
