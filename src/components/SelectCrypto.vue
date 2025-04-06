@@ -22,20 +22,20 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({
+defineProps({
   setCrypto: {
     type: Function,
     required: true,
   },
 })
 
-const emit = defineEmits(['setCrypto'])
+const emit = defineEmits(['changeCrypto'])
 const current = ref('')
 
 // Выбор криптовалюты
 const selectCrypto = (value) => {
   current.value = value
-  emit('setCrypto', value)
+  emit('changeCrypto', value)
 }
 </script>
 
