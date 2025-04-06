@@ -1,42 +1,31 @@
 <template>
   <ul class="list">
-    <li class="list__item" @click="selectCrypto('BTC')" :class="current === 'BTC' ? 'active' : ''">
+    <li class="list__item" @click="setCrypto('BTC')" :class="cryptoNew === 'BTC' ? 'active' : ''">
       Bitcoin
     </li>
-    <li class="list__item" @click="selectCrypto('LTC')" :class="current === 'LTC' ? 'active' : ''">
+    <li class="list__item" @click="setCrypto('LTC')" :class="cryptoNew === 'LTC' ? 'active' : ''">
       Litecoin
     </li>
-    <li class="list__item" @click="selectCrypto('ETH')" :class="current === 'ETH' ? 'active' : ''">
+    <li class="list__item" @click="setCrypto('ETH')" :class="cryptoNew === 'ETH' ? 'active' : ''">
       Ethereum
     </li>
-    <li
-      class="list__item"
-      @click="selectCrypto('USDT')"
-      :class="current === 'USDT' ? 'active' : ''"
-    >
+    <li class="list__item" @click="setCrypto('USDT')" :class="cryptoNew === 'USDT' ? 'active' : ''">
       Tether
     </li>
   </ul>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 defineProps({
   setCrypto: {
     type: Function,
     required: true,
   },
+  cryptoNew: {
+    type: String,
+    required: true,
+  },
 })
-
-const emit = defineEmits(['changeCrypto'])
-const current = ref('')
-
-// Выбор криптовалюты
-const selectCrypto = (value) => {
-  current.value = value
-  emit('changeCrypto', value)
-}
 </script>
 
 <style scoped lang="scss">
