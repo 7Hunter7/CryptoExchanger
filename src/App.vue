@@ -5,9 +5,7 @@
   <p v-if="result != 0" class="result">{{ result }}</p>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" @changeCrypto="changeCryptoFirst" />
-    />
     <select-crypto :setCrypto="setCryptoSecond" @changeCrypto="changeCryptoSecond" />
-    />
   </div>
 </template>
 
