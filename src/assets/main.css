@@ -76,3 +76,25 @@ h1 {
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-largetitle);
 }
+
+.button {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: none;
+  border-radius: var(--spacing-xs);
+  color: var(--color-primary);
+  text-shadow: var(--text-shadow);
+  background-color: var(--background-select-color);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-item);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.button:hover {
+  color: var(--color-black);
+  background-color: var(--color-primary);
+  box-shadow: var(--spacing-xxxs) var(--spacing-xxs) var(--spacing-xxs) var(--color-black);
+}
+.button:active {
+  transition: transform 0.1s ease-in-out;
+  transform: scale(0.97);
+}
