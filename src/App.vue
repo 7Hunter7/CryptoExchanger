@@ -12,8 +12,16 @@
     {{ favourites }}
   </favorite-convert>
   <div class="selectors">
-    <select-crypto :setCrypto="setCryptoFirst" @changeCrypto="changeCryptoFirst" />
-    <select-crypto :setCrypto="setCryptoSecond" @changeCrypto="changeCryptoSecond" />
+    <select-crypto
+      :setCrypto="setCryptoFirst"
+      @changeCrypto="changeCryptoFirst"
+      :cryptoNew="cryptoFirst"
+    />
+    <select-crypto
+      :setCrypto="setCryptoSecond"
+      @changeCrypto="changeCryptoSecond"
+      :cryptoNew="cryptoSecond"
+    />
   </div>
 </template>
 
@@ -145,7 +153,13 @@ const removeFavourite = (index) => {
   favourites.value = favouritesConvert
 }
 
-const getFavorite = () => {}
+const getFavorite = (index) => {
+  // Устанавливаем криптовалюты
+  cryptoFirst.value = favourites[index].from
+  cryptoSecond.value = favourites[index].to
+  // Конвертируем
+  convert()
+}
 </script>
 
 <style scoped>
