@@ -3,7 +3,9 @@
   <input-crypto :changeAmount="changeAmount" :convert="convert" :addToFavorite="addToFavorite" />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
-  <favorite-convert v-if="favorite != ''" :favorite="favorite"> {{ favorite }} </favorite-convert>
+  <favorite-convert v-if="favourites.length > 0" :favourites="favourites">
+    {{ favourites }}
+  </favorite-convert>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" @changeCrypto="changeCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" @changeCrypto="changeCryptoSecond" />
@@ -24,7 +26,7 @@ const cryptoFirst = ref('') // Первая криптовалюта
 const cryptoSecond = ref('') // Вторая криптовалюта
 const error = ref('') // Ошибка
 const result = ref('') // Результат конвертации
-const favorite = ref('') // Избранное
+const favourites = ref([]) // Избранное
 
 // Функция для изменения количества криптовалюты
 const changeAmount = (value) => {
@@ -94,7 +96,7 @@ const convert = async () => {
 
 // Функция для добавления в избранное
 const addToFavorite = () => {
-  let favoriteConvert = []
+  let favouritesConvert = []
 
   if (cryptoFirst.value === '' || cryptoSecond.value === '') {
     error.value = 'Выберите криптовалюту'
@@ -105,28 +107,20 @@ const addToFavorite = () => {
   }
   error.value = ''
   // Проверяем, есть ли в localStorage избранное
-  if (localStorage.getItem('favorite') === null) {
+  if (localStorage.getItem('favourites') === null) {
     // Добавляем новую запись в избранное
-    favoriteConvert = favorite.value.push({
+    favouritesConvert = favourites.value.push({
       from: cryptoFirst.value,
       to: cryptoSecond.value,
     })
 
-    localStorage.setItem('favorite', JSON.stringify(favoriteConvert))
+    localStorage.setItem('favourites', JSON.stringify(favouritesConvert))
   }
   // Получаем избранное из localStorage
-  favoriteConvert = JSON.parse(localStorage.getItem('favorite'))
-  // Удаляем дубликаты
-  favorite.value = favoriteConvert.filter((item, index) => {
-    return (
-      index ===
-      favorite.value.findIndex((i) => {
-        return i.from === item.from && i.to === item.to
-      })
-    )
-  })
+  favouritesConvert = JSON.parse(localStorage.getItem('favourites'))
+
   // Сортируем по алфавиту
-  favorite.value.sort((a, b) => {
+  favourites.value.sort((a, b) => {
     if (a.from < b.from) return -1
     if (a.from > b.from) return 1
     return 0
