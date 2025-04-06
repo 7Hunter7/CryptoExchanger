@@ -6,11 +6,11 @@
     id="crypto"
     class="input"
     @input="store.setAmount($event.target.value)"
-    placeholder="Введите число"
+    placeholder="Input number to convert"
   />
   <br />
-  <button class="button" @click="store.convert()">Конвертировать</button>
-  <button class="button favorite-button" @click="store.addToFavorite()">В избранное</button>
+  <button class="button" @click="store.convert()">Convert</button>
+  <button class="button favorite-button" @click="store.addToFavorite()">Add to favourites</button>
 </template>
 
 <script setup>
