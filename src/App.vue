@@ -126,18 +126,10 @@ const addToFavorite = () => {
       from: cryptoFirst.value,
       to: cryptoSecond.value,
     })
-
     localStorage.setItem('favourites', JSON.stringify(favouritesConvert))
   }
   // Получаем избранное из localStorage
-  favouritesConvert = JSON.parse(localStorage.getItem('favourites'))
-
-  // Сортируем по алфавиту
-  favourites.value.sort((a, b) => {
-    if (a.from < b.from) return -1
-    if (a.from > b.from) return 1
-    return 0
-  })
+  favourites.value = JSON.parse(localStorage.getItem('favourites'))
   // Выводим сообщение
   alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)
 }
