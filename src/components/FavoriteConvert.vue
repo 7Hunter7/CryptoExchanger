@@ -1,13 +1,13 @@
 <template>
-  <div class="favourite">
+  <div class="favorite">
     <h2>Избранное</h2>
-    <div v-if="favourites.length > 0" class="favourite__list">
-      <ul v-for="(item, index) in favourites" :key="index">
-        <li @click="getFavorite(index)" class="favourite__item">
+    <div v-if="favorites.length > 0" class="favorite__list">
+      <ul v-for="(item, index) in favorites" :key="index">
+        <li @click="store.getFavorite(index)" class="favorite__item">
           <span>{{ item.from }}</span>
           <span>→</span>
           <span>{{ item.to }}</span>
-          <button @click="removeFavourite(index)" class="favourite__button">Удалить</button>
+          <button @click="store.removeFavorite(index)" class="favorite__button">Удалить</button>
         </li>
       </ul>
     </div>
@@ -15,21 +15,15 @@
 </template>
 
 <script setup>
-defineProps({
-  favourites: {
-    type: Array,
-    required: true,
-  },
-  getFavorite: {
-    type: Function,
-    required: true,
-  },
-})
-defineEmits(['removeFavourite'])
+import { storeToRefs } from 'pinia'
+import { useCryptoStore } from '@/stores/crypto'
+
+const store = useCryptoStore()
+const { favorites } = storeToRefs(store)
 </script>
 
 <style scoped lang="scss">
-.favourite {
+.favorite {
   width: var(--selectors-width);
   margin: var(--spacing-md) auto;
   padding: var(--spacing-md);
