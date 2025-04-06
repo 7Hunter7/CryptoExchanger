@@ -86,8 +86,6 @@ export const useCryptoStore = defineStore('crypto', () => {
 
   // Функция для добавления в избранное
   const addToFavorite = () => {
-    let favoritesConvert = []
-
     if (cryptoFirst.value === '' || cryptoSecond.value === '') {
       error.value = 'Выберите криптовалюту'
       return
@@ -96,18 +94,14 @@ export const useCryptoStore = defineStore('crypto', () => {
       return
     }
     error.value = ''
-    // Проверяем, есть ли в localStorage избранное
-    if (localStorage.getItem('favorites') === null) {
-      // Добавляем новую запись в избранное
-      favoritesConvert = favorites.value.push({
-        from: cryptoFirst.value,
-        to: cryptoSecond.value,
-      })
-      localStorage.setItem('favorites', JSON.stringify(favoritesConvert))
+
+    const newFavourite = {
+      from: cryptoFirst.value,
+      to: cryptoSecond.value,
     }
-    // Получаем избранное из localStorage
-    favorites.value = JSON.parse(localStorage.getItem('favorites'))
-    // Выводим сообщение
+    favorites.value.push(newFavourite)
+    // Обновляем localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites.value))
     alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)
   }
 
