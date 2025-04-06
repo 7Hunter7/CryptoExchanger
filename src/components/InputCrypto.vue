@@ -10,6 +10,7 @@
   />
   <br />
   <button class="button" @click="convert()">Конвертировать</button>
+  <button class="button favorite-button" @click="addToFavorite()">В избранное</button>
 </template>
 
 <script setup>
@@ -22,14 +23,14 @@ defineProps({
     type: Function,
     required: true,
   },
+  addToFavorite: {
+    type: Function,
+    required: true,
+  },
 })
 </script>
 
 <style scoped lang="scss">
-.label {
-  font-size: var(--font-size-md);
-  color: var(--color-primary);
-}
 .input {
   width: var(--input-width);
   margin-top: var(--spacing-md);
@@ -64,5 +65,8 @@ defineProps({
     transition: transform 0.1s ease-in-out;
     transform: scale(0.97);
   }
+}
+.favorite-button {
+  margin-left: var(--spacing-md);
 }
 </style>
