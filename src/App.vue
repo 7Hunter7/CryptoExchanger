@@ -1,8 +1,9 @@
 <template>
   <h1>Crypto exchanger</h1>
-  <input-crypto :changeAmount="changeAmount" :convert="convert" />
+  <input-crypto :changeAmount="changeAmount" :convert="convert" :addToFavorite="addToFavorite" />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
+  <p v-if="favorite != ''" class="favorite">{{ favorite }}</p>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" @changeCrypto="changeCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" @changeCrypto="changeCryptoSecond" />
@@ -15,13 +16,14 @@ import InputCrypto from '@/components/InputCrypto.vue'
 import SelectCrypto from '@/components/SelectCrypto.vue'
 import CryptoConvert from 'crypto-convert'
 
-const convertor = new CryptoConvert() // Подключаем иблиотеку для конвертации криптовалют
+const convertor = new CryptoConvert() // Подключаем библиотеку для конвертации криптовалют
 
 const amount = ref(0) // Количество криптовалюты
 const cryptoFirst = ref('') // Первая криптовалюта
 const cryptoSecond = ref('') // Вторая криптовалюта
 const error = ref('') // Ошибка
 const result = ref('') // Результат конвертации
+const favorite = ref('') // Избранное
 
 // Функция для изменения количества криптовалюты
 const changeAmount = (value) => {
@@ -87,6 +89,49 @@ const convert = async () => {
     result.value = convertor.USDT.LTC(amount.value)
   else if (cryptoFirst.value === 'USDT' && cryptoSecond.value === 'ETH')
     result.value = convertor.USDT.ETH(amount.value)
+}
+
+// Функция для добавления в избранное
+const addToFavorite = () => {
+  let favoriteConvert = []
+
+  if (cryptoFirst.value === '' || cryptoSecond.value === '') {
+    error.value = 'Выберите криптовалюту'
+    return
+  } else if (cryptoFirst.value === cryptoSecond.value) {
+    error.value = 'Выберите разные криптовалюты'
+    return
+  }
+  error.value = ''
+  // Проверяем, есть ли в localStorage избранное
+  if (localStorage.getItem('favorite') === null) {
+    // Добавляем новую запись в избранное
+    favoriteConvert = favorite.value.push({
+      from: cryptoFirst.value,
+      to: cryptoSecond.value,
+    })
+
+    localStorage.setItem('favorite', JSON.stringify(favoriteConvert))
+  }
+  // Получаем избранное из localStorage
+  favoriteConvert = JSON.parse(localStorage.getItem('favorite'))
+  // Удаляем дубликаты
+  favorite.value = favoriteConvert.filter((item, index) => {
+    return (
+      index ===
+      favorite.value.findIndex((i) => {
+        return i.from === item.from && i.to === item.to
+      })
+    )
+  })
+  // Сортируем по алфавиту
+  favorite.value.sort((a, b) => {
+    if (a.from < b.from) return -1
+    if (a.from > b.from) return 1
+    return 0
+  })
+  // Выводим сообщение
+  alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)
 }
 </script>
 
