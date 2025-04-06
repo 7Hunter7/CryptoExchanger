@@ -110,9 +110,9 @@ const convert = async () => {
 }
 .result {
   margin-top: var(--spacing-md);
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family-first);
   font-size: var(--font-size-title);
-  color: var(--color-green);
-  text-shadow: 0 0 5px var(--color-green);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow);
 }
 </style>
