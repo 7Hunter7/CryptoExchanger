@@ -1,7 +1,7 @@
 <template>
   <h1>Crypto exchanger</h1>
   <input-crypto :changeAmount="changeAmount" :convert="convert" />
-  <p v-if="error != ''">{{ error }}</p>
+  <p v-if="error != ''" class="error">{{ error }}</p>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" />
@@ -31,9 +31,11 @@ const convert = () => {
   if (amount.value <= 0) {
     error.value = 'Введите значение больше 0'
     return
-  }
-  if (cryptoFirst.value === '' || cryptoSecond.value === '') {
+  } else if (cryptoFirst.value === '' || cryptoSecond.value === '') {
     error.value = 'Выберите криптовалюту'
+    return
+  } else if (cryptoFirst.value === cryptoSecond.value) {
+    error.value = 'Выберите разные криптовалюты'
     return
   }
   error.value = ''
@@ -50,5 +52,12 @@ const convert = () => {
   gap: var(--spacing-md);
   margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-md);
+}
+.error {
+  margin-top: var(--spacing-sm);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-item);
+  color: var(--color-red);
+  text-shadow: 0 0 5px var(--color-red);
 }
 </style>
