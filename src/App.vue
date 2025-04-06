@@ -3,7 +3,7 @@
   <input-crypto :changeAmount="changeAmount" :convert="convert" :addToFavorite="addToFavorite" />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
-  <p v-if="favorite != ''" class="favorite">{{ favorite }}</p>
+  <favorite-convert v-if="favorite != ''" :favorite="favorite"> {{ favorite }} </favorite-convert>
   <div class="selectors">
     <select-crypto :setCrypto="setCryptoFirst" @changeCrypto="changeCryptoFirst" />
     <select-crypto :setCrypto="setCryptoSecond" @changeCrypto="changeCryptoSecond" />
@@ -14,6 +14,7 @@
 import { ref } from 'vue'
 import InputCrypto from '@/components/InputCrypto.vue'
 import SelectCrypto from '@/components/SelectCrypto.vue'
+import FavoriteConvert from '@/components/FavoriteConvert.vue'
 import CryptoConvert from 'crypto-convert'
 
 const convertor = new CryptoConvert() // Подключаем библиотеку для конвертации криптовалют
