@@ -6,6 +6,8 @@
     id="crypto"
     class="input"
     @input="store.setAmount($event.target.value)"
+    @keypress.enter="store.convert()"
+    @keypress.esc="clear()"
     placeholder="Input number to convert"
   />
   <br />
@@ -17,6 +19,11 @@
 import { useCryptoStore } from '@/stores/crypto'
 
 const store = useCryptoStore()
+
+const clear = () => {
+  store.setAmount(0)
+  store.clearError()
+}
 </script>
 
 <style scoped lang="scss">

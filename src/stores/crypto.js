@@ -117,6 +117,11 @@ export const useCryptoStore = defineStore('crypto', () => {
     favorites.value = favoritesConvert
   }
 
+  // Функция для сброса ошибок
+  const clearError = () => {
+    error.value = ''
+  }
+
   return {
     amount,
     cryptoFirst,
@@ -131,5 +136,6 @@ export const useCryptoStore = defineStore('crypto', () => {
     getFavorite,
     addToFavorite,
     removeFavorite,
+    clearError,
   }
 })
