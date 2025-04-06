@@ -14,12 +14,12 @@
   <div class="selectors">
     <select-crypto
       :setCrypto="setCryptoFirst"
-      @changeCrypto="changeCryptoFirst"
+      @changeCrypto="setCryptoFirst"
       :cryptoNew="cryptoFirst"
     />
     <select-crypto
       :setCrypto="setCryptoSecond"
-      @changeCrypto="changeCryptoSecond"
+      @changeCrypto="setCryptoSecond"
       :cryptoNew="cryptoSecond"
     />
   </div>
