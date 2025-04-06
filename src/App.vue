@@ -3,7 +3,12 @@
   <input-crypto :changeAmount="changeAmount" :convert="convert" :addToFavorite="addToFavorite" />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
-  <favorite-convert v-if="favourites.length > 0" :favourites="favourites">
+  <favorite-convert
+    v-if="favourites.length > 0"
+    :favourites="favourites"
+    :getFavorite="getFavorite"
+    @removeFavourite="removeFavourite"
+  >
     {{ favourites }}
   </favorite-convert>
   <div class="selectors">
@@ -128,6 +133,19 @@ const addToFavorite = () => {
   // Выводим сообщение
   alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)
 }
+// Функция для удаления из избранного
+const removeFavourite = (index) => {
+  // Получаем избранное из localStorage
+  const favouritesConvert = JSON.parse(localStorage.getItem('favourites'))
+  // Удаляем элемент из массива
+  favouritesConvert.splice(index, 1)
+  // Сохраняем изменения в localStorage
+  localStorage.setItem('favourites', JSON.stringify(favouritesConvert))
+  // Обновляем массив избранного
+  favourites.value = favouritesConvert
+}
+
+const getFavorite = () => {}
 </script>
 
 <style scoped>
