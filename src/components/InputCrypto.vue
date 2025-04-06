@@ -5,29 +5,18 @@
     :max="1000000000"
     id="crypto"
     class="input"
-    @input="changeAmount($event.target.value)"
+    @input="store.setAmount($event.target.value)"
     placeholder="Введите число"
   />
   <br />
-  <button class="button" @click="convert()">Конвертировать</button>
-  <button class="button favorite-button" @click="addToFavorite()">В избранное</button>
+  <button class="button" @click="store.convert()">Конвертировать</button>
+  <button class="button favorite-button" @click="store.addToFavorite()">В избранное</button>
 </template>
 
 <script setup>
-defineProps({
-  changeAmount: {
-    type: Function,
-    required: true,
-  },
-  convert: {
-    type: Function,
-    required: true,
-  },
-  addToFavorite: {
-    type: Function,
-    required: true,
-  },
-})
+import { useCryptoStore } from '@/stores/crypto'
+
+const store = useCryptoStore()
 </script>
 
 <style scoped lang="scss">
