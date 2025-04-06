@@ -38,7 +38,7 @@ const amount = ref(0) // Количество криптовалюты
 const cryptoFirst = ref('') // Первая криптовалюта
 const cryptoSecond = ref('') // Вторая криптовалюта
 const error = ref('') // Ошибка
-const result = ref('') // Результат конвертации
+const result = ref(0) // Результат конвертации
 const favourites = ref([]) // Избранное
 
 // Функция для изменения количества криптовалюты
