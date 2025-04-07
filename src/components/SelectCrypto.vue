@@ -1,15 +1,31 @@
 <template>
   <ul class="list">
-    <li class="list__item" @click="setCrypto('BTC')" :class="cryptoNew === 'BTC' ? 'active' : ''">
+    <li
+      class="list__item"
+      @click="$emit('click', 'BTC')"
+      :class="cryptoNew === 'BTC' ? 'active' : ''"
+    >
       Bitcoin
     </li>
-    <li class="list__item" @click="setCrypto('LTC')" :class="cryptoNew === 'LTC' ? 'active' : ''">
+    <li
+      class="list__item"
+      @click="$emit('click', 'LTC')"
+      :class="cryptoNew === 'LTC' ? 'active' : ''"
+    >
       Litecoin
     </li>
-    <li class="list__item" @click="setCrypto('ETH')" :class="cryptoNew === 'ETH' ? 'active' : ''">
+    <li
+      class="list__item"
+      @click="$emit('click', 'ETH')"
+      :class="cryptoNew === 'ETH' ? 'active' : ''"
+    >
       Ethereum
     </li>
-    <li class="list__item" @click="setCrypto('USDT')" :class="cryptoNew === 'USDT' ? 'active' : ''">
+    <li
+      class="list__item"
+      @click="$emit('click', 'USDT')"
+      :class="cryptoNew === 'USDT' ? 'active' : ''"
+    >
       Tether
     </li>
   </ul>
@@ -17,15 +33,13 @@
 
 <script setup>
 defineProps({
-  setCrypto: {
-    type: Function,
-    required: true,
-  },
   cryptoNew: {
     type: String,
     required: true,
   },
 })
+
+defineEmits(['click'])
 </script>
 
 <style scoped lang="scss">
