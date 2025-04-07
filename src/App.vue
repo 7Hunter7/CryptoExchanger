@@ -5,8 +5,8 @@
   <p v-if="result != 0" class="result">{{ result }}</p>
   <favorite-convert v-if="favorites.length > 0" />
   <div class="selectors">
-    <select-crypto :setCrypto="setCryptoFirst" :cryptoNew="cryptoFirst" />
-    <select-crypto :setCrypto="setCryptoSecond" :cryptoNew="cryptoSecond" />
+    <select-crypto :cryptoNew="cryptoFirst" @click="store.setCrypto('first', 'BTC')" />
+    <select-crypto :cryptoNew="cryptoSecond" @click="store.setCrypto('second', 'BTC')" />
   </div>
 </template>
 
@@ -19,13 +19,12 @@ import FavoriteConvert from '@/components/FavoriteConvert.vue'
 
 const store = useCryptoStore()
 const { cryptoFirst, cryptoSecond, error, result, favorites } = storeToRefs(store)
-const { setCryptoFirst, setCryptoSecond } = store
 </script>
 
 <style scoped>
 .selectors {
   width: var(--selectors-width);
-  margin: 0 auto; /* Center the selectors */
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
