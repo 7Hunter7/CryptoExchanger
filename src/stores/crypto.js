@@ -2,6 +2,19 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import CryptoConvert from 'crypto-convert'
 
+const FAVORITES_KEY = 'favorites' // Ключ для хранения избранного в localStorage
+
+// Функция загрузки избранного из localStorage
+const loadFavorites = () => {
+  const storedFavorites = localStorage.getItem(FAVORITES_KEY)
+  return storedFavorites ? JSON.parse(storedFavorites) : []
+}
+
+// Функция сохранения избранного в localStorage
+const saveFavorites = (favorites) => {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites))
+}
+
 export const useCryptoStore = defineStore('crypto', () => {
   const convertor = new CryptoConvert() // Подключаем библиотеку для конвертации криптовалют
 
@@ -10,22 +23,23 @@ export const useCryptoStore = defineStore('crypto', () => {
   const cryptoSecond = ref('') // Вторая криптовалюта
   const error = ref('') // Ошибка
   const result = ref(0) // Результат конвертации
-  const favorites = ref([]) // Избранное
+  const favorites = ref(loadFavorites()) // Инициализация избранного из localStorage
 
-  // Функция для установки количества криптовалюты
+  // Функция установки количества криптовалюты
   const setAmount = (value) => {
     amount.value = value
   }
 
-  // Функции для установки криптовалют
-  const setCryptoFirst = (value) => {
-    cryptoFirst.value = value
-  }
-  const setCryptoSecond = (value) => {
-    cryptoSecond.value = value
+  // Общая функция установки криптовалюты
+  const setCrypto = (cryptoType, value) => {
+    if (cryptoType === 'first') {
+      cryptoFirst.value = value
+    } else if (cryptoType === 'second') {
+      cryptoSecond.value = value
+    }
   }
 
-  // Функция для конвертации криптовалют
+  // Функция конвертации криптовалют
   const convert = async () => {
     if (amount.value <= 0) {
       error.value = 'Введите значение больше 0'
@@ -40,34 +54,37 @@ export const useCryptoStore = defineStore('crypto', () => {
     error.value = ''
     try {
       await convertor.ready()
+      let conversionResult = 0
       // Конвертируем BTC
       if (cryptoFirst.value === 'BTC' && cryptoSecond.value === 'LTC')
-        result.value = convertor.BTC.LTC(amount.value)
+        conversionResult = convertor.BTC.LTC(amount.value)
       else if (cryptoFirst.value === 'BTC' && cryptoSecond.value === 'ETH')
-        result.value = convertor.BTC.ETH(amount.value)
+        conversionResult = convertor.BTC.ETH(amount.value)
       else if (cryptoFirst.value === 'BTC' && cryptoSecond.value === 'USDT')
-        result.value = convertor.BTC.USDT(amount.value)
+        conversionResult = convertor.BTC.USDT(amount.value)
       // Конвертируем LTC
       else if (cryptoFirst.value === 'LTC' && cryptoSecond.value === 'BTC')
-        result.value = convertor.LTC.BTC(amount.value)
+        conversionResult = convertor.LTC.BTC(amount.value)
       else if (cryptoFirst.value === 'LTC' && cryptoSecond.value === 'ETH')
-        result.value = convertor.LTC.ETH(amount.value)
+        conversionResult = convertor.LTC.ETH(amount.value)
       else if (cryptoFirst.value === 'LTC' && cryptoSecond.value === 'USDT')
-        result.value = convertor.LTC.USDT(amount.value)
+        conversionResult = convertor.LTC.USDT(amount.value)
       // Конвертируем ETH
       else if (cryptoFirst.value === 'ETH' && cryptoSecond.value === 'BTC')
-        result.value = convertor.ETH.BTC(amount.value)
+        conversionResult = convertor.ETH.BTC(amount.value)
       else if (cryptoFirst.value === 'ETH' && cryptoSecond.value === 'LTC')
-        result.value = convertor.ETH.LTC(amount.value)
+        conversionResult = convertor.ETH.LTC(amount.value)
       else if (cryptoFirst.value === 'ETH' && cryptoSecond.value === 'USDT')
-        result.value = convertor.ETH.USDT(amount.value)
+        conversionResult = convertor.ETH.USDT(amount.value)
       // Конвертируем USDT
       else if (cryptoFirst.value === 'USDT' && cryptoSecond.value === 'BTC')
-        result.value = convertor.USDT.BTC(amount.value)
+        conversionResult = convertor.USDT.BTC(amount.value)
       else if (cryptoFirst.value === 'USDT' && cryptoSecond.value === 'LTC')
-        result.value = convertor.USDT.LTC(amount.value)
+        conversionResult = convertor.USDT.LTC(amount.value)
       else if (cryptoFirst.value === 'USDT' && cryptoSecond.value === 'ETH')
-        result.value = convertor.USDT.ETH(amount.value)
+        conversionResult = convertor.USDT.ETH(amount.value)
+
+      result.value = conversionResult
     } catch (error) {
       console.error('Error during conversion:', error)
       this.error = 'Произошла ошибка при конвертации! Пожалуйста, попробуйте позже.'
@@ -75,16 +92,20 @@ export const useCryptoStore = defineStore('crypto', () => {
     }
   }
 
-  // Функция для получения избранного
+  // Функция получения избранного
   const getFavorite = (index) => {
-    // Устанавливаем криптовалюты
-    cryptoFirst.value = favorites[index].from
-    cryptoSecond.value = favorites[index].to
-    // Конвертируем
-    convert()
+    // Проверяем, что элемент с таким индексом существует в массиве
+    if (index >= 0 && index < favorites.value.length) {
+      cryptoFirst.value = favorites.value[index].from
+      cryptoSecond.value = favorites.value[index].to
+      convert()
+    } else {
+      console.warn(`Invalid index: ${index}`)
+      error.value = 'Invalid favorite selection' // Можно добавить обработку ошибки
+    }
   }
 
-  // Функция для добавления в избранное
+  // Функция добавления в избранное
   const addToFavorite = () => {
     if (cryptoFirst.value === '' || cryptoSecond.value === '') {
       error.value = 'Выберите криптовалюту'
@@ -99,25 +120,23 @@ export const useCryptoStore = defineStore('crypto', () => {
       from: cryptoFirst.value,
       to: cryptoSecond.value,
     }
-    favorites.value.push(newFavorite)
-    // Обновляем localStorage
-    localStorage.setItem('favorites', JSON.stringify(favorites.value))
+
+    favorites.value = [...favorites.value, newFavorite] // Обновляем реактивное состояние
+    saveFavorites(favorites.value) // Сохраняем в localStorage
     alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)
   }
 
-  // Функция для удаления из избранного
+  // Функция удаления из избранного
   const removeFavorite = (index) => {
-    // Получаем избранное из localStorage
-    const favoritesConvert = JSON.parse(localStorage.getItem('favorites'))
-    // Удаляем элемент из массива
-    favoritesConvert.splice(index, 1)
-    // Сохраняем изменения в localStorage
-    localStorage.setItem('favorites', JSON.stringify(favoritesConvert))
-    // Обновляем массив избранного
-    favorites.value = favoritesConvert
+    if (index >= 0 && index < favorites.value.length) {
+      const updatedFavorites = [...favorites.value] // Создаем копию массива
+      updatedFavorites.splice(index, 1) // Изменяем копию
+      favorites.value = updatedFavorites // Обновляем реактивное состояние
+      saveFavorites(favorites.value) // Сохраняем в localStorage
+    }
   }
 
-  // Функция для сброса ошибок
+  // Функция сброса ошибок
   const clearError = () => {
     error.value = ''
   }
@@ -130,8 +149,7 @@ export const useCryptoStore = defineStore('crypto', () => {
     result,
     favorites,
     setAmount,
-    setCryptoFirst,
-    setCryptoSecond,
+    setCrypto, // Общая функция установки криптовалюты
     convert,
     getFavorite,
     addToFavorite,
