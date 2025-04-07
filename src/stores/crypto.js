@@ -95,11 +95,11 @@ export const useCryptoStore = defineStore('crypto', () => {
     }
     error.value = ''
 
-    const newFavourite = {
+    const newFavorite = {
       from: cryptoFirst.value,
       to: cryptoSecond.value,
     }
-    favorites.value.push(newFavourite)
+    favorites.value.push(newFavorite)
     // Обновляем localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites.value))
     alert(`Конвертация ${cryptoFirst.value} в ${cryptoSecond.value} добавлена в избранное`)

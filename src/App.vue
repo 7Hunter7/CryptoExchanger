@@ -3,20 +3,10 @@
   <input-crypto />
   <p v-if="error != ''" class="error">{{ error }}</p>
   <p v-if="result != 0" class="result">{{ result }}</p>
-  <favorite-convert v-if="favorites.length > 0">
-    {{ favorites }}
-  </favorite-convert>
+  <favorite-convert v-if="favorites.length > 0" />
   <div class="selectors">
-    <select-crypto
-      :setCrypto="setCryptoFirst"
-      @changeCrypto="setCryptoFirst"
-      :cryptoNew="cryptoFirst"
-    />
-    <select-crypto
-      :setCrypto="setCryptoSecond"
-      @changeCrypto="setCryptoSecond"
-      :cryptoNew="cryptoSecond"
-    />
+    <select-crypto :setCrypto="setCryptoFirst" :cryptoNew="cryptoFirst" />
+    <select-crypto :setCrypto="setCryptoSecond" :cryptoNew="cryptoSecond" />
   </div>
 </template>
 
