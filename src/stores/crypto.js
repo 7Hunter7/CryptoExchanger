@@ -85,9 +85,9 @@ export const useCryptoStore = defineStore('crypto', () => {
         conversionResult = convertor.USDT.ETH(amount.value)
 
       result.value = conversionResult
-    } catch (error) {
-      console.error('Error during conversion:', error)
-      this.error = 'Произошла ошибка при конвертации! Пожалуйста, попробуйте позже.'
+    } catch (e) {
+      console.error('Error during conversion:', e)
+      error.value = 'Произошла ошибка при конвертации! Пожалуйста, попробуйте позже.'
       result.value = 0
     }
   }

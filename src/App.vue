@@ -5,8 +5,8 @@
   <p v-if="result != 0" class="result">{{ result }}</p>
   <favorite-convert v-if="favorites.length > 0" />
   <div class="selectors">
-    <select-crypto :cryptoNew="cryptoFirst" @click="store.setCrypto('first', 'BTC')" />
-    <select-crypto :cryptoNew="cryptoSecond" @click="store.setCrypto('second', 'BTC')" />
+    <select-crypto :cryptoNew="cryptoFirst" @click="store.setCrypto('first', $event)" />
+    <select-crypto :cryptoNew="cryptoSecond" @click="store.setCrypto('second', $event)" />
   </div>
 </template>
 
