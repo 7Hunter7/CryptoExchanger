@@ -5,7 +5,7 @@
     :max="1000000000"
     id="crypto"
     class="input"
-    @input="store.setAmount($event.target.value)"
+    @input="store.setAmount(Number($event.target.value))"
     @keypress.enter="store.convert()"
     @keypress.esc="clear()"
     placeholder="Input number to convert"
@@ -36,14 +36,17 @@ const clear = () => {
   outline: none;
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-item);
+
   &:focus {
     outline: none;
     border-color: var(--color-primary);
   }
 }
+
 .button {
   margin-top: var(--spacing-md);
 }
+
 .favorite-button {
   margin-left: var(--spacing-md);
 }

@@ -27,7 +27,7 @@ export const useCryptoStore = defineStore('crypto', () => {
 
   // Функция установки количества криптовалюты
   const setAmount = (value) => {
-    amount.value = value
+    amount.value = Number(value)
   }
 
   // Общая функция установки криптовалюты
